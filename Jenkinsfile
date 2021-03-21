@@ -1,23 +1,15 @@
-node {    
-      def app     
-      stage('Clone repository') {               
-             
-            checkout scm    
-      }     
-      stage('Build image') {         
-       
-            app = docker.build("beerbaron1231/jenkinstest1")    
-       }     
-      stage('Test image') {           
-            app.inside {            
-             
-             sh 'echo "Tests passed"'        
-            }    
-        }     
-       stage('Push image') {
-           docker.withRegistry('https://registry.hub.docker.com', 'git') {
-               app.push("${env.BUILD_NUMBER}")
-               app.push("latest")
-               }
+pipeline {
+    agent any
+    stages {
+        stage('Build image') {
+            steps {
+                echo 'Starting to build docker image'
+
+                script {
+                    def customImage = docker.build("my-image:${env.BUILD_ID}")
+                    customImage.push()
+                }
+            }
         }
     }
+}
