@@ -10,6 +10,13 @@ pipeline {
                     customImage.push()
                 }
             }
+             steps {
+                echo 'run server'
+
+                script {
+                    docker.image("my-image:${env.BUILD_ID}").withRun('-p 3000:3000')
+                }
+            }
             
         }
     }
