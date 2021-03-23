@@ -12,7 +12,8 @@ pipeline {
 
                 //  }
                 //}
-                sh 'dir'
+                cmd_exec('echo "Buils starting..."')
+                cmd_exec('echo "dir /a /b"')
             }
         }
         
