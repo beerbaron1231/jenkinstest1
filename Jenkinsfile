@@ -8,7 +8,9 @@ pipeline {
                 script {
                     def customImage = docker.build("my-image:${env.BUILD_ID}")
                    // customImage.push()
-                   docker.image("my-image:${env.BUILD_ID}").withRun('-p 3000:3000')
+                  docker.image("my-image:${env.BUILD_ID}").withRun('-d=true -p 3000:3000') {
+
+                  }
                 }
             }
         }
